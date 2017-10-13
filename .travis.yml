@@ -20,8 +20,8 @@ install:
   - sudo killall -9 com.apple.CoreSimulator.CoreSimulatorService  # same simulator: https://github.com/travis-ci/travis-ci/issues/7580#issuecomment-292974395
 
 script:
-  - .travisBuildHelper.sh build iOS
-#  - .travisBuildHelper.sh test iOS
+  - ./travisBuildHelper.sh build iOS
+#  - ./travisBuildHelper.sh test iOS
 
 after_failure:
   - test -f "StackViewDevelop-iOS-build.log" && tail -n 2500 "StackViewDevelop-iOS-build.log"
