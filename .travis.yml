@@ -26,6 +26,9 @@ script:
   - ./travisBuildHelper.sh build iOS
 #  - ./travisBuildHelper.sh test iOS
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 after_failure:
   - test -f "StackViewDevelop-iOS-build.log" && tail -n 2500 "StackViewDevelop-iOS-build.log"
 #  - test -f "StackViewDevelop-iOS-test.log" && tail -n 2500 "StackViewDevelop-iOS-test.log"
