@@ -1,6 +1,29 @@
 language: objective-c
+xcode_project: StackViewDevelop.xcodeproj
 os: osx
 osx_image: xcode9
 
+branches:
+  only:
+    - master
+
+git:
+  depth: 10
+  submodules: false
+
+before_install:
+  - sudo systemsetup -settimezone America/New_York          # temporary hack: NYC timezone is required for some MBDataEnvironment date-related unit tests
+
+install:
+  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - rm -rf ~/Library/Developer/CoreSimulator              # these two lines are a hack around a recurring Travis problem: multiple versions of the
+  - sudo killall -9 com.apple.CoreSimulator.CoreSimulatorService  # same simulator: https://github.com/travis-ci/travis-ci/issues/7580#issuecomment-292974395
+
 script:
-  - xcodebuild clean build -workspace StackViewDevelop.xcworkspace -scheme StackViewDevelop -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.0'
+  - .travisBuildHelper.sh build iOS
+#  - .travisBuildHelper.sh test iOS
+
+after_failure:
+  - test -f "StackViewDevelop-iOS-build.log" && tail -n 2500 "StackViewDevelop-iOS-build.log"
+#  - test -f "StackViewDevelop-iOS-test.log" && tail -n 2500 "StackViewDevelop-iOS-test.log"
+#  - test -f "StackViewDevelop-iOS-test.log" && LINE_BEFORE=`cat "StackViewDevelop-iOS-test.log" | grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." | awk -F':' '{print $1}'` && LINE=`expr $LINE_BEFORE + 1` && LOG_FILE=`head -n $LINE "StackViewDevelop-iOS-test.log" | tail -n 1` && cat "$LOG_FILE"
