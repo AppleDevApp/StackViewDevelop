@@ -17,6 +17,8 @@ Branch|Build status
 --------|------------------------
 [`master`](https://github.com/AppleDevApp/StackViewDevelop)|[![Build status: master branch](https://travis-ci.org/AppleDevApp/StackViewDevelop.svg?branch=master)](https://travis-ci.org/AppleDevApp/StackViewDevelop)
 
+[![codecov.io](https://codecov.io/github/AppleDevApp/StackViewDevelop/coverage.svg?branch=master)](https://codecov.io/github/AppleDevApp/StackViewDevelop?branch=master)
+
 
 ### Contents
 	
